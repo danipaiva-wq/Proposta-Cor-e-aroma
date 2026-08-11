@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Exclusiva — Cor & Aroma</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --preto: #1A1A18;
+    --offwhite: #FAFAF7;
+    --dourado: #C9A96E;
+    --cinza: #6B6B68;
+    --cinza-claro: #E8E8E5;
+    --creme: #F5F0E8;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--offwhite); color: var(--preto);
+    font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(26,26,24,0.97); backdrop-filter: blur(8px);
+    padding: 14px 48px; display: flex; gap: 24px; align-items: center;
+    border-bottom: 1px solid rgba(201,169,110,0.15);
+    overflow-x: auto; white-space: nowrap;
+  }
+  .nav a {
+    color: rgba(250,250,247,0.55); text-decoration: none; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; flex-shrink: 0;
+  }
+  .nav a:hover { color: var(--dourado); }
+
+  /* HERO */
+  .hero {
+    background: var(--preto); min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding: 64px 48px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; right: 0; width: 45%; height: 100%;
+    background: linear-gradient(135deg, transparent 30%, rgba(201,169,110,0.05) 100%);
+    pointer-events: none;
+  }
+  /* Textura de fio sutil no hero */
+  .hero::after {
+    content: ''; position: absolute; bottom: 40px; right: 48px;
+    width: 180px; height: 180px; opacity: 0.06;
+    background-image: repeating-linear-gradient(45deg, var(--dourado) 0, var(--dourado) 1px, transparent 0, transparent 50%);
+    background-size: 8px 8px;
+    border-radius: 50%;
+  }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dourado); margin-bottom: 32px; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 6vw, 82px); font-weight: 300; line-height: 1.05; color: var(--offwhite); max-width: 760px; margin-bottom: 24px; }
+  .hero-title em { font-style: italic; color: var(--dourado); }
+  .hero-sub { font-size: 15px; font-weight: 300; color: rgba(250,250,247,0.55); max-width: 540px; line-height: 1.8; margin-bottom: 48px; }
+  .hero-meta { display: flex; gap: 40px; flex-wrap: wrap; }
+  .hero-meta-item label { display: block; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dourado); margin-bottom: 4px; }
+  .hero-meta-item span { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--offwhite); }
+
+  section { padding: 88px 48px; max-width: 980px; margin: 0 auto; }
+  .section-eyebrow { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dourado); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--dourado); opacity: 0.25; max-width: 48px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 4vw, 46px); font-weight: 400; line-height: 1.2; margin-bottom: 24px; }
+  .section-title em { font-style: italic; color: var(--dourado); }
+  .section-body { font-size: 15px; font-weight: 300; color: var(--cinza); line-height: 1.8; max-width: 640px; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--dourado), transparent); opacity: 0.15; margin: 0 48px; }
+
+  /* DIAGNÓSTICO */
+  .diag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; background: var(--cinza-claro); }
+  .diag-item { background: var(--offwhite); padding: 32px; }
+  .diag-item.dark { background: var(--preto); }
+  .diag-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dourado); margin-bottom: 10px; }
+  .diag-titulo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; margin-bottom: 8px; line-height: 1.3; }
+  .diag-item.dark .diag-titulo { color: var(--offwhite); }
+  .diag-texto { font-size: 13px; font-weight: 300; color: var(--cinza); line-height: 1.7; }
+  .diag-item.dark .diag-texto { color: rgba(250,250,247,0.6); }
+
+  /* O QUE VAMOS CONSTRUIR */
+  .construir-lista { margin-top: 48px; display: flex; flex-direction: column; gap: 2px; background: var(--cinza-claro); }
+  .construir-item { background: var(--offwhite); padding: 28px 36px; display: grid; grid-template-columns: 48px 1fr; gap: 24px; align-items: start; }
+  .construir-item.dark { background: var(--preto); }
+  .construir-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--cinza-claro); line-height: 1; }
+  .construir-item.dark .construir-num { color: rgba(201,169,110,0.2); }
+  .construir-titulo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+  .construir-item.dark .construir-titulo { color: var(--offwhite); }
+  .construir-texto { font-size: 13px; font-weight: 300; color: var(--cinza); line-height: 1.7; }
+  .construir-item.dark .construir-texto { color: rgba(250,250,247,0.6); }
+
+  /* TABS DE FASES */
+  .tabs-nav { display: flex; gap: 2px; margin-top: 48px; background: var(--cinza-claro); }
+  .tab-btn { flex: 1; padding: 18px; background: var(--offwhite); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cinza); transition: all 0.2s; }
+  .tab-btn.active { background: var(--preto); color: var(--dourado); }
+  .tab-content { display: none; padding: 40px; background: var(--offwhite); border: 1px solid var(--cinza-claro); border-top: none; }
+  .tab-content.active { display: block; }
+  .fase-titulo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; margin-bottom: 8px; }
+  .fase-titulo em { font-style: italic; color: var(--dourado); }
+  .fase-sub { font-size: 13px; color: var(--cinza); margin-bottom: 24px; }
+  .fase-lista { list-style: none; }
+  .fase-lista li { font-size: 13px; font-weight: 300; color: var(--cinza); padding: 9px 0; border-bottom: 1px solid var(--cinza-claro); padding-left: 16px; position: relative; line-height: 1.6; }
+  .fase-lista li::before { content: '·'; position: absolute; left: 0; color: var(--dourado); font-size: 18px; line-height: 1; }
+  .fase-lista li strong { color: var(--preto); font-weight: 500; }
+
+  /* BÔNUS */
+  .bonus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; background: var(--cinza-claro); }
+  .bonus-item { background: var(--offwhite); padding: 32px; }
+  .bonus-eyebrow { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dourado); margin-bottom: 10px; }
+  .bonus-titulo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; margin-bottom: 8px; }
+  .bonus-texto { font-size: 13px; font-weight: 300; color: var(--cinza); line-height: 1.7; }
+
+  /* DEPOIMENTO */
+  .depoimento-box { background: var(--creme); padding: 40px; margin-top: 48px; border-left: 3px solid var(--dourado); }
+  .depoimento-titulo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; margin-bottom: 12px; }
+  .depoimento-texto { font-size: 13px; font-weight: 300; color: var(--cinza); line-height: 1.8; }
+
+  /* INVESTIMENTO */
+  .invest-wrapper { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--cinza-claro); }
+  .invest-principal { background: var(--preto); padding: 48px; }
+  .invest-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dourado); margin-bottom: 16px; }
+  .invest-de { font-size: 14px; color: rgba(250,250,247,0.3); text-decoration: line-through; margin-bottom: 4px; }
+  .invest-valor { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; color: var(--offwhite); line-height: 1; margin-bottom: 8px; }
+  .invest-valor span { font-size: 22px; vertical-align: super; }
+  .invest-parcelas { font-size: 13px; font-weight: 300; color: rgba(250,250,247,0.5); margin-bottom: 32px; }
+  .invest-lista { list-style: none; }
+  .invest-lista li { font-size: 13px; font-weight: 300; color: rgba(250,250,247,0.65); padding: 8px 0; border-bottom: 1px solid rgba(250,250,247,0.07); display: flex; align-items: center; gap: 10px; }
+  .invest-lista li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--dourado); flex-shrink: 0; }
+  .invest-lista li strong { color: var(--offwhite); font-weight: 500; }
+  .invest-incluso { background: var(--offwhite); padding: 48px; }
+  .invest-incluso-titulo { font-family: 'Cormorant Garamond', serif; font-size: 22px; margin-bottom: 24px; line-height: 1.3; }
+  .invest-incluso-lista { list-style: none; }
+  .invest-incluso-lista li { font-size: 13px; font-weight: 300; color: var(--cinza); padding: 9px 0; border-bottom: 1px solid var(--cinza-claro); display: flex; align-items: center; gap: 10px; }
+  .invest-incluso-lista li::before { content: '✓'; color: var(--dourado); font-size: 11px; flex-shrink: 0; }
+
+  /* CTA */
+  .cta-section { background: var(--offwhite); padding: 88px 48px; text-align: center; border-top: 1px solid var(--cinza-claro); }
+  .cta-titulo { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 400; line-height: 1.25; margin-bottom: 20px; }
+  .cta-titulo em { font-style: italic; color: var(--dourado); }
+  .cta-sub { font-size: 14px; font-weight: 300; color: var(--cinza); max-width: 460px; margin: 0 auto 40px; line-height: 1.8; }
+  .cta-btn { display: inline-block; background: var(--preto); color: var(--dourado); text-decoration: none; padding: 18px 44px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--dourado); }
+
+  /* ASSINATURA */
+  .assinatura { background: var(--preto); padding: 80px 48px; text-align: center; }
+  .assinatura-nome { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: var(--offwhite); margin-bottom: 4px; }
+  .assinatura-cargo { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dourado); margin-bottom: 32px; }
+  .assinatura-frase { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; font-weight: 300; color: rgba(250,250,247,0.4); max-width: 480px; margin: 0 auto 40px; line-height: 1.6; }
+  .assinatura-contato { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+  .assinatura-contato div label { display: block; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dourado); margin-bottom: 4px; }
+  .assinatura-contato div span { font-size: 13px; color: rgba(250,250,247,0.5); }
+
+  @media (max-width: 768px) {
+    .hero, section { padding: 56px 24px; }
+    .diag-grid, .bonus-grid, .invest-wrapper { grid-template-columns: 1fr; }
+    .tabs-nav { flex-direction: column; }
+    .tab-content { padding: 24px; }
+    .nav { padding: 14px 20px; gap: 16px; }
+    .construir-item { grid-template-columns: 1fr; gap: 8px; }
+    .divider { margin: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="26" height="26" style="flex-shrink:0;margin-right:8px;" aria-label="Daniela Paiva">
+    <g fill="none" stroke="#C9A96E" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="120,20 206.6,70 206.6,170 120,220 33.4,170 33.4,70"></polygon>
+      <circle cx="120" cy="120" r="80"></circle>
+      <path d="M90,72 L90,176"></path>
+      <path d="M90,72 C124,72 138,96 138,124 C138,152 124,176 90,176"></path>
+      <path d="M170,72 L170,176"></path>
+      <path d="M90,176 L170,72"></path>
+    </g>
+    <circle cx="127" cy="126.5" r="5.5" fill="#C9A96E"></circle>
+  </svg>
+  <a href="#diagnostico">O que vimos</a>
+  <a href="#construir">O que vamos construir</a>
+  <a href="#fases">Fases</a>
+  <a href="#bonus">Bônus</a>
+  <a href="#investimento">Investimento</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Proposta Exclusiva · Agosto 2026</p>
+  <h1 class="hero-title">Vera, cada ponto do seu<br>crochê merece ser <em>visto.</em></h1>
+  <p class="hero-sub">Você cria peças únicas, artesanais e de alto valor. Esta proposta foi desenhada para que a sua presença digital finalmente comunique tudo isso com a elegância e a profundidade que o seu trabalho merece.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><label>Preparado por</label><span>Daniela Paiva</span></div>
+    <div class="hero-meta-item"><label>Para</label><span>Cor & Aroma · @corearoma</span></div>
+    <div class="hero-meta-item"><label>Agosto de 2026</label><span>Proposta exclusiva</span></div>
+  </div>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<section id="diagnostico">
+  <p class="section-eyebrow">O que eu vejo hoje</p>
+  <h2 class="section-title">O produto é lindo.<br>A <em>história ainda está escondida.</em></h2>
+  <p class="section-body">Olhei o seu perfil com cuidado antes de escrever uma só palavra desta proposta. Aqui está o que encontrei.</p>
+
+  <div class="diag-grid">
+    <div class="diag-item dark">
+      <p class="diag-label">O que está faltando</p>
+      <p class="diag-titulo">O perfil é uma vitrine sem alma</p>
+      <p class="diag-texto">As fotos são bonitas, os produtos são incríveis. Mas não existe narrativa, não existe história, não existe a mulher por trás de cada fio. Quem chega no seu perfil vê produto, não arte. E arte é o que você faz.</p>
+    </div>
+    <div class="diag-item">
+      <p class="diag-label">O que está faltando</p>
+      <p class="diag-titulo">A bio não convida, apenas informa</p>
+      <p class="diag-texto">"Crochê autoral, encomendas por direct." É funcional, mas não seduz. Quem lê não sente nada. E crochê feito à mão é, antes de tudo, sentimento.</p>
+    </div>
+    <div class="diag-item">
+      <p class="diag-label">O que está faltando</p>
+      <p class="diag-titulo">As peças não têm nome nem história</p>
+      <p class="diag-texto">Uma bolsa sem nome é uma bolsa. Uma bolsa chamada Sofia, feita em fio de malha rosê com acabamento em couro, que nasceu num domingo chuvoso, já é uma peça que as pessoas querem ter.</p>
+    </div>
+    <div class="diag-item dark">
+      <p class="diag-label">A oportunidade</p>
+      <p class="diag-titulo">O crochê sofisticado está em alta e o seu produto já está lá</p>
+      <p class="diag-texto">O mercado de moda artesanal de alto valor percebido está crescendo. Pessoas querem peças únicas, autorais, com história. Você tem tudo isso. Falta só mostrar.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- O QUE VAMOS CONSTRUIR -->
+<section id="construir">
+  <p class="section-eyebrow">O que vamos construir juntas</p>
+  <h2 class="section-title">Uma presença digital que<br><em>conta quem você é.</em></h2>
+  <p class="section-body">Este não é um pacote de gestão de redes. É uma transformação completa, com tudo explicado para que você entenda o porquê de cada escolha e consiga continuar sozinha depois.</p>
+
+  <div class="construir-lista">
+    <div class="construir-item dark">
+      <span class="construir-num">01</span>
+      <div>
+        <p class="construir-titulo">Identidade e perfil do zero</p>
+        <p class="construir-texto">Bio nova que conecta, foto de perfil real, link profissional com o site já criado, destaques redesenhados, monograma exclusivo da marca e identidade visual realinhada para alto valor percebido.</p>
+      </div>
+    </div>
+    <div class="construir-item">
+      <span class="construir-num">02</span>
+      <div>
+        <p class="construir-titulo">Persona e estratégia de comunicação</p>
+        <p class="construir-texto">Quem é a sua cliente ideal, o que ela sente, o que ela deseja. Mas não para ficar num papel. A gente vai te ensinar como usar isso dentro de cada conteúdo: como falar a língua dela, como despertar o desejo certo na hora certa, como usar a sua própria história para criar conexão de verdade.</p>
+      </div>
+    </div>
+    <div class="construir-item dark">
+      <span class="construir-num">03</span>
+      <div>
+        <p class="construir-titulo">Manifesto da marca</p>
+        <p class="construir-texto">A história de como a Cor & Aroma nasceu, o que o crochê representa para você e por que cada peça que sai das suas mãos é diferente de qualquer outra. Esse texto vai ser o coração de tudo.</p>
+      </div>
+    </div>
+    <div class="construir-item">
+      <span class="construir-num">04</span>
+      <div>
+        <p class="construir-titulo">60 dias de conteúdo prontos com roteiros e legendas</p>
+        <p class="construir-texto">Dois meses de conteúdo planejado, roteirizado e com legendas escritas. Entregue toda semana no domingo, para você já saber o que vem pela frente. Com o porquê de cada formato explicado para você entender a lógica.</p>
+      </div>
+    </div>
+    <div class="construir-item dark">
+      <span class="construir-num">05</span>
+      <div>
+        <p class="construir-titulo">Guia de gravação do zero</p>
+        <p class="construir-texto">Como limpar a câmera, enquadrar, usar a luz natural, gravar sem aparecer no começo e ir aparecendo aos poucos. Tudo explicado de forma simples, prática e sem complicação.</p>
+      </div>
+    </div>
+    <div class="construir-item">
+      <span class="construir-num">06</span>
+      <div>
+        <p class="construir-titulo">Guia de tipos de conteúdo</p>
+        <p class="construir-texto">O que é conteúdo de atração, de venda e de autoridade. Por que fazer carrossel, por que mostrar o processo, por que narrar um vídeo, por que aparecer. Você vai entender a lógica e não vai mais depender de ninguém para decidir o que postar.</p>
+      </div>
+    </div>
+    <div class="construir-item dark">
+      <span class="construir-num">07</span>
+      <div>
+        <p class="construir-titulo">Jornada do cliente completa</p>
+        <p class="construir-texto">Mensagem de boas-vindas, confirmação de pedido, pós-venda, mensagem de aniversário. Um fluxo simples de acompanhamento que faz o cliente se sentir especial e voltar a comprar.</p>
+      </div>
+    </div>
+    <div class="construir-item">
+      <span class="construir-num">08</span>
+      <div>
+        <p class="construir-titulo">Estratégia de parcerias e encomendas</p>
+        <p class="construir-texto">Como oferecer suas peças para consultórios, lojas e empresas. Como gerar encomendas de lembrancinhas de casamento, presentes corporativos e datas comemorativas. Tudo com roteiro pronto para você usar.</p>
+      </div>
+    </div>
+    <div class="construir-item dark">
+      <span class="construir-num">09</span>
+      <div>
+        <p class="construir-titulo">Tutorial de edição e guia de fotografia</p>
+        <p class="construir-texto">No primeiro mês você grava e eu edito. Mas enquanto faço, gravo a tela explicando cada passo no Edits, o editor do Instagram, para você aprender vendo. Você também recebe um guia de como fotografar suas peças em casa: como aproveitar a luz da manhã, fundo neutro, ângulos para mostrar detalhes e a bolsa inteira. Tudo simples, sem equipamento caro.</p>
+      </div>
+    </div>
+    <div class="construir-item dark">
+      <span class="construir-num">10</span>
+      <div>
+        <p class="construir-titulo">Posicionamento e alma da marca</p>
+        <p class="construir-texto">A Cor & Aroma vai deixar de ser uma vitrine e se tornar uma marca com identidade, voz e propósito. Vamos construir o seu posicionamento a partir da sua história, para que tudo que vier depois, conteúdo, parcerias, encomendas, nasça de um lugar verdadeiro e coerente.</p>
+      </div>
+    </div>
+    <div class="construir-item">
+      <span class="construir-num">11</span>
+      <div>
+        <p class="construir-titulo">Entrega semanal pelo WhatsApp</p>
+        <p class="construir-texto">Todo domingo você recebe no WhatsApp: o PDF com os roteiros e legendas da semana prontos para copiar e colar, os vídeos e imagens editados prontos para postar, e uma mensagem de voz minha explicando o que fazer em cada dia. Simples, sem complicação, sem precisar entrar em nenhum site ou plataforma nova.</p>
+      </div>
+    </div>
+    <div class="construir-item dark">
+      <span class="construir-num">12</span>
+      <div>
+        <p class="construir-titulo">Você nunca vai ficar sozinha sem saber o que fazer</p>
+        <p class="construir-texto">Tudo que fizermos no primeiro mês será explicado: por que estamos fazendo, como estamos fazendo e como você pode replicar sozinha depois. Não é só entregar. É ensinar. Para que no segundo mês você já esteja aplicando com confiança, com o meu acompanhamento próximo a cada quinze dias.</p>
+      </div>
+    </div>
+    <div class="construir-item">
+      <span class="construir-num">13</span>
+      <div>
+        <p class="construir-titulo">Reuniões a cada 15 dias</p>
+        <p class="construir-texto">Quatro encontros ao longo dos dois meses para alinhar, ensinar, corrigir e incentivar. Você nunca vai ficar sozinha sem saber o que fazer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FASES -->
+<section id="fases">
+  <p class="section-eyebrow">Como vai acontecer</p>
+  <h2 class="section-title">Dois meses,<br><em>cada semana com propósito.</em></h2>
+  <p class="section-body">Uma semana de cada vez, com entrega clara e acompanhamento próximo.</p>
+
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="showFase(0, this)">Mês 1 · Fundação</button>
+    <button class="tab-btn" onclick="showFase(1, this)">Mês 2 · Autonomia</button>
+  </div>
+
+  <div class="tab-content active" id="fase-0">
+    <h3 class="fase-titulo">Mês 1 · <em>Construir a base</em></h3>
+    <p class="fase-sub">O mês em que a Cor & Aroma ganha identidade, voz e conteúdo.</p>
+    <ul class="fase-lista">
+      <li>Reestruturação completa do perfil: bio, foto, link, destaques, monograma e identidade visual</li>
+      <li>Briefing da persona, manifesto da marca e definição da voz e posicionamento</li>
+      <li>Primeiros conteúdos no ar com a nova identidade</li>
+      <li>Roteiros, legendas e guia de gravação entregues e ensinados</li>
+      <li>Edição dos vídeos com tutorial gravado em tela explicando cada passo</li>
+      <li>Jornada do cliente montada e entregue</li>
+      <li>Roteiro de parcerias e encomendas entregue</li>
+      <li>Duas reuniões de alinhamento a cada quinze dias</li>
+    </ul>
+  </div>
+
+  <div class="tab-content" id="fase-1">
+    <h3 class="fase-titulo">Mês 2 · <em>Ganhar autonomia</em></h3>
+    <p class="fase-sub">Você executa. Eu acompanho, ajusto e incentivo.</p>
+    <ul class="fase-lista">
+      <li>Roteiros e legendas entregues para você gravar, editar e postar</li>
+      <li>Acompanhamento do que está funcionando e do que precisa ajustar</li>
+      <li>Jornada do cliente aplicada conforme as encomendas chegam</li>
+      <li>Duas reuniões de alinhamento para corrigir e planejar os próximos passos</li>
+      <li>Entrega final: guia completo de como continuar sozinha</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BÔNUS -->
+<section id="bonus">
+  <p class="section-eyebrow">Bônus exclusivos</p>
+  <h2 class="section-title">O que você recebe<br><em>além de tudo isso.</em></h2>
+
+  <div class="bonus-grid">
+    <div class="bonus-item">
+      <p class="bonus-eyebrow">Bônus 1 · Já entregue</p>
+      <p class="bonus-titulo">Site de portfólio Cor & Aroma</p>
+      <p class="bonus-texto">Site completo com todas as suas peças organizadas por categoria, com nomes criados para cada bolsa, a sua história escrita e chamada para WhatsApp. Disponível em cor-e-aroma.vercel.app</p>
+    </div>
+    <div class="bonus-item">
+      <p class="bonus-eyebrow">Bônus 2</p>
+      <p class="bonus-titulo">Monograma exclusivo da marca</p>
+      <p class="bonus-texto">Um símbolo visual da Cor & Aroma para usar em fotos, vídeos, embalagens e materiais. Identidade que vai além do Instagram.</p>
+    </div>
+    <div class="bonus-item">
+      <p class="bonus-eyebrow">Bônus 3</p>
+      <p class="bonus-titulo">Clareza com IA</p>
+      <p class="bonus-texto">Prompts simples e didáticos para você usar inteligência artificial de forma fácil e prática no dia a dia do seu negócio, sem complicação.</p>
+    </div>
+    <div class="bonus-item">
+      <p class="bonus-eyebrow">Bônus 4</p>
+      <p class="bonus-titulo">Da Dor ao Conteúdo</p>
+      <p class="bonus-texto">Método para transformar a dor da sua cliente em conteúdo que conecta, engaja e converte. Uma ferramenta que você vai usar para sempre.</p>
+    </div>
+  </div>
+
+  <div class="depoimento-box">
+    <p class="depoimento-titulo">Um pedido especial</p>
+    <p class="depoimento-texto">Esta proposta foi pensada com muito cuidado para o seu momento e para o que você precisa. Se ao longo do processo você sentir vontade de compartilhar como está sendo essa jornada, um áudio, um texto ou um vídeo curto sobre o que está achando e o que está fazendo diferença para o seu negócio, ficará muito especial para nós.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INVESTIMENTO -->
+<section id="investimento">
+  <p class="section-eyebrow">Investimento</p>
+  <h2 class="section-title">Tudo que está<br><em>incluído nesse valor.</em></h2>
+
+  <div class="invest-wrapper">
+    <div class="invest-principal">
+      <p class="invest-label">Investimento total</p>
+      <p class="invest-de">R$ 1.797 se contratado separado</p>
+      <p class="invest-valor"><span>R$</span> 597</p>
+      <p class="invest-parcelas">à vista · ou em 3x de R$ 199</p>
+      <ul class="invest-lista">
+        <li>Reestruturação completa do perfil</li>
+        <li>Monograma exclusivo da marca</li>
+        <li>Desenho completo da persona</li>
+        <li>Manifesto da marca</li>
+        <li><strong>60 dias</strong> de roteiros e legendas prontos</li>
+        <li>Edição dos vídeos no primeiro mês</li>
+        <li>Guia de gravação do zero</li>
+        <li>Guia de tipos de conteúdo</li>
+        <li>Jornada do cliente completa</li>
+        <li>Roteiro de parcerias e encomendas</li>
+        <li><strong>4 reuniões</strong> de acompanhamento</li>
+      </ul>
+    </div>
+    <div class="invest-incluso">
+      <p class="invest-incluso-titulo">Bônus incluídos nessa proposta</p>
+      <ul class="invest-incluso-lista">
+        <li>Site de portfólio Cor & Aroma</li>
+        <li>Monograma exclusivo da marca</li>
+        <li>Clareza com IA</li>
+        <li>Da Dor ao Conteúdo</li>
+        <li>Cronograma para o mês seguinte</li>
+        <li>Guia completo para continuar sozinha</li>
+      </ul>
+      <div style="margin-top: 32px; padding: 20px; background: var(--cinza-claro);">
+        <p style="font-size: 12px; font-weight: 300; color: var(--cinza); line-height: 1.7; font-style: italic;">Este valor é exclusivo para esta proposta. Cada um dos entregáveis acima está pensado especificamente para a Cor & Aroma e para o que você precisa neste momento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <p style="font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dourado); margin-bottom: 20px;">Próximo passo</p>
+  <h2 class="cta-titulo">Pronta para contar a<br>história que <em>merece ser contada?</em></h2>
+  <p class="cta-sub">Ao confirmar, alinhamos data de início e enviamos o contrato. Tudo descrito aqui vira compromisso assinado.</p>
+  <a href="https://wa.me/5511944906572?text=Ol%C3%A1%20Daniela%2C%20vi%20a%20proposta%20e%20quero%20come%C3%A7ar!%20Vamos%20l%C3%A1%3F" target="_blank" class="cta-btn">Vamos começar</a>
+</div>
+
+<!-- ASSINATURA -->
+<div class="assinatura">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="56" height="56" style="display:block;margin:0 auto 24px;" aria-label="Daniela Paiva">
+    <g fill="none" stroke="#C9A96E" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="120,20 206.6,70 206.6,170 120,220 33.4,170 33.4,70"></polygon>
+      <circle cx="120" cy="120" r="80"></circle>
+      <path d="M90,72 L90,176"></path>
+      <path d="M90,72 C124,72 138,96 138,124 C138,152 124,176 90,176"></path>
+      <path d="M170,72 L170,176"></path>
+      <path d="M90,176 L170,72"></path>
+    </g>
+    <circle cx="127" cy="126.5" r="5.5" fill="#C9A96E"></circle>
+  </svg>
+  <p class="assinatura-nome">Daniela Paiva</p>
+  <p class="assinatura-cargo">Estrategista Digital</p>
+  <p class="assinatura-frase">"Sua história já existe. Meu trabalho é fazer o mundo conhecer ela."</p>
+  <div class="assinatura-contato">
+    <div><label>Instagram</label><span>@danielapaiva.co</span></div>
+    <div><label>WhatsApp</label><span>(11) 94490-6572</span></div>
+  </div>
+</div>
+
+<script>
+function showFase(idx, btn) {
+  document.querySelectorAll('#fases .tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#fases .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('fase-' + idx).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>
